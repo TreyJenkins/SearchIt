@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 
 $query = htmlspecialchars($_GET["q"]);
 $response = array("query" => $query, "version" => "1.0");
+$start = microtime(true);
 
 function search($string) {
     $database = "Search";
@@ -53,6 +54,7 @@ function search($string) {
 }
 
 search($query);
-
+$time_elapsed_secs = microtime(true) - $start;
+$response["elapsed"] = $time_elapsed_secs;
 echo json_encode($response);
 ?>
