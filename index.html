@@ -103,7 +103,7 @@ html, body {
 
     $("#resForm").submit(function(e) {
 
-        var url = "api/V1?q=" + encodeURIComponent(document.getElementById('squery').value); // the script where you handle the form input.
+        var url = "api/V1?q=" + encodeURIComponent(document.getElementById('rquery').value); // the script where you handle the form input.
 
         $.ajax({
             type: "GET",
