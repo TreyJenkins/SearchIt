@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-$database = "Search"
-$username = "USER"
-$password = "PASS"
-$hostname = "localhost"
+$database = "Search";
+$username = "USER";
+$password = "PASS";
+$hostname = "localhost";
 
 $query = htmlspecialchars($_GET["q"]);
 $response = array("query" => $query, "version" => "1.0");
@@ -29,6 +29,8 @@ function search($string) {
 
     $conn->close();
 }
+
+search($query);
 
 echo json_encode($response);
 ?>
