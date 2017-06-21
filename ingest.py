@@ -28,9 +28,11 @@ output = {"tokens": str(clean(indata)), "timestamp": int(time.time()), "document
 x = db.cursor()
 
 try:
-   x.execute("INSERT INTO indexed VALUES (%s, %s, %s)",(str(clean(indata)), int(time.time()), str(infile)))
-   db.commit()
+    x.execute("INSERT INTO indexed VALUES (%s, %s, %s)",(str(clean(indata)), int(time.time()), str(infile)))
+    db.commit()
+    print "Wrote " + str(len(output["tokens"])) + " bytes of tokens"
 except:
-   db.rollback()
+    print "Failed to ingest data"
+    db.rollback()
 
 db.close()
