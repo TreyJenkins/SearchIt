@@ -73,6 +73,10 @@ html, body {
                 <button type="submit" class="btn btn-default btn-lg" style="">Search</button>
             </center>
     </form>
+    <br>
+    <div id="result">
+
+    </div>
 </div>
 </div>
 
@@ -85,16 +89,22 @@ function switchToResults() {
 
 $("#searchForm").submit(function(e) {
 
-    var url = "SearchIt/api/V1?q=" + $('#squery').serialize(); // the script where you handle the form input.
-
-    console.log(url);
+    var url = "api/V1?q=" + encodeURIComponent(document.getElementById('squery').value); // the script where you handle the form input.
 
     $.ajax({
            type: "GET",
            url: url,
-           success: function(data)
-           {
-               alert(data); // show response from the php script.
+           success: function(data) {
+
+               var res = JSON.parse(data.results);
+
+                document.getElementById("result").innerHTML = "";
+
+                for (var key in res) {
+                    if (res.hasOwnProperty(key)) {
+                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'>" + res[key][0] + "</div> </div>";
+                    }
+                }
            }
         });
 
