@@ -1,15 +1,15 @@
 <?php
 header('Content-Type: application/json');
 
-$database = "Search";
-$username = "USER";
-$password = "PASS";
-$hostname = "localhost";
-
 $query = htmlspecialchars($_GET["q"]);
 $response = array("query" => $query, "version" => "1.0");
 
 function search($string) {
+    $database = "Search";
+    $username = "USER";
+    $password = "PASS";
+    $hostname = "localhost";
+    
     $conn = new mysqli($hostname, $username, $password, $database);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
