@@ -29,8 +29,8 @@ x = db.cursor()
 
 try:
    x.execute("INSERT INTO indexed VALUES (%s, %s, %s)",(str(clean(indata)), int(time.time()), str(infile)))
-   conn.commit()
+   db.commit()
 except:
-   conn.rollback()
+   db.rollback()
 
 conn.close()
