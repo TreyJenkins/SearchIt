@@ -32,8 +32,9 @@ try:
     print "Commiting..."
     db.commit()
     print "Wrote " + str(len(output["tokens"])) + " bytes of tokens"
-except:
+except (MySQLdb.Error, MySQLdb.Warning) as e:
     print "Failed to ingest data"
+    print e
     db.rollback()
 
 db.close()
