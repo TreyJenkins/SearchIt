@@ -73,7 +73,7 @@ html, body {
     <div class="jumbotron" id="resmain">
     <div class="container">
         <center>
-        <form class="form-inline">
+        <form id="resForm" class="form-inline">
             <div class="form-group" style="width:100%">
                 <center>
                     <input type="text" class="form-control input-lg" id="rquery" style="vertical-align: middle; width:50%">
@@ -100,6 +100,32 @@ html, body {
         document.getElementById("main").style.display = "none";
         document.getElementById("results").style.display = "";
     }
+
+    $("#resForm").submit(function(e) {
+
+        var url = "api/V1?q=" + encodeURIComponent(document.getElementById('squery').value); // the script where you handle the form input.
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data) {
+
+                var res = JSON.parse(data.results);
+
+                document.getElementById("result").innerHTML = "";
+
+                for (var key in res) {
+                    if (res.hasOwnProperty(key)) {
+                        var date = new Date();
+                        date.setTime(parseInt(res[key][0])*1000);
+                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'>" + "DATA HERE" + "</div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+                    }
+                }
+            }
+        });
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
 
     $("#searchForm").submit(function(e) {
 
