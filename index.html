@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SearchIt!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+
+html, body {
+  height: 100%;
+}
+
+.jumbotron.vertical-center {
+  margin-bottom: 0;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+    -webkit-box-align : center;
+  -webkit-align-items : center;
+       -moz-box-align : center;
+       -ms-flex-align : center;
+          align-items : center;
+  width: 100%;
+         -webkit-box-pack : center;
+            -moz-box-pack : center;
+            -ms-flex-pack : center;
+  -webkit-justify-content : center;
+          justify-content : center;
+}
+
+</style>
+<div class="jumbotron vertical-center" id="main">
+<div class="container">
+    <center>
+        <h1>Search It</h1>
+    </center>
+    <br>
+    <form id="searchForm" action="#">
+        <div class="form-group" style="text-align:center;">
+            <center>
+                <input type="text" class="form-control input-lg" id="squery" style="vertical-align: middle; width:50%">
+            </center>
+        </div>
+
+        <br>
+
+        <center>
+            <button type="submit" class="btn btn-default btn-lg" style="width:25%;font-size:x-large">Search</button>
+        </center>
+    </form>
+</div>
+</div>
+
+<div class="jumbotron" id="results" style="display: none;">
+<div class="container">
+    <form class="form-inline">
+        <div class="form-group" style="text-align:center;">
+            <center>
+                <input type="text" class="form-control input-lg" id="rquery" style="vertical-align: middle;">
+                <button type="submit" class="btn btn-default btn-lg" style="">Search</button>
+            </center>
+    </form>
+</div>
+</div>
+
+<script>
+
+function switchToResults() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("results").style.display = "";
+}
+
+$("#searchForm").submit(function(e) {
+
+    var url = "SearchIt/api/V1?q=" + $('#squery').serialize(); // the script where you handle the form input.
+
+    console.log(url);
+
+    $.ajax({
+           type: "GET",
+           url: url,
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           }
+        });
+
+    switchToResults();
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+});
+
+</script>
+
+</html>
