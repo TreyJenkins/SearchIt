@@ -25,6 +25,7 @@ function search($string) {
     $query = array_filter($query, function($value) { return $value !== ''; });
 
     $restrk = array();
+    $doctab = array();
 
     foreach($query as $item) {
         $sql = "SELECT id, timestamp, document FROM indexed WHERE tokens LIKE '%" . $item . "%'";
@@ -32,7 +33,7 @@ function search($string) {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo "Result for '" . $item . "': " . $row['document'];
+                $doctab[$row['id']] = array($row['document'], $row['timestamp']);
                 if (array_key_exists($row['id'], $restrk)) {
                     $restrk[$row['id']]++;
                 } else {
@@ -42,7 +43,14 @@ function search($string) {
         }
     }
 
-    $response["results"] = json_encode($restrk);
+    $results = array();
+
+    rsort($restrk);
+    foreach ($restrk as $key => $val) {
+        $results[$doctab[$key][0]] = array("id" => $key, "score" => $val, "timestamp" => $doctab[$key][1]);
+    }
+
+    $response["results"] = json_encode($results);
 
     $conn->close();
 }
