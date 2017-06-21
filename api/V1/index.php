@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 $query = htmlspecialchars($_GET["q"]);
 $response = array("query" => $query, "version" => "1.0");
