@@ -12,91 +12,92 @@
 <style>
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 .jumbotron.vertical-center {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .vertical-center {
-  min-height: 100%;
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+    min-height: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 
     -webkit-box-align : center;
-  -webkit-align-items : center;
-       -moz-box-align : center;
-       -ms-flex-align : center;
-          align-items : center;
-  width: 100%;
-         -webkit-box-pack : center;
-            -moz-box-pack : center;
-            -ms-flex-pack : center;
-  -webkit-justify-content : center;
-          justify-content : center;
+    -webkit-align-items : center;
+    -moz-box-align : center;
+    -ms-flex-align : center;
+    align-items : center;
+    width: 100%;
+    -webkit-box-pack : center;
+    -moz-box-pack : center;
+    -ms-flex-pack : center;
+    -webkit-justify-content : center;
+    justify-content : center;
 }
 
 </style>
 <div class="jumbotron vertical-center" id="main">
-<div class="container">
-    <center>
-        <h1>Search It</h1>
-    </center>
-    <br>
-    <form id="searchForm" action="#">
-        <div class="form-group" style="text-align:center;">
-            <center>
-                <input type="text" class="form-control input-lg" id="squery" style="vertical-align: middle; width:50%">
-            </center>
-        </div>
-
-        <br>
-
+    <div class="container">
         <center>
-            <button type="submit" class="btn btn-default btn-lg" style="width:25%;font-size:x-large">Search</button>
+            <h1>Search It</h1>
         </center>
-    </form>
-</div>
+        <br>
+        <form id="searchForm" action="#">
+            <div class="form-group" style="text-align:center;">
+                <center>
+                    <input type="text" class="form-control input-lg" id="squery" style="vertical-align: middle; width:50%">
+                </center>
+            </div>
+
+            <br>
+
+            <center>
+                <button type="submit" class="btn btn-default btn-lg" style="width:25%;font-size:x-large">Search</button>
+            </center>
+        </form>
+    </div>
 </div>
 
 <div class="jumbotron" id="results" style="display: none;">
-<div class="container well">
-    <form class="form-inline">
-        <div class="form-group">
-            <center>
-                <input type="text" class="form-control input-lg" id="rquery" style="vertical-align: middle;">
-                <button type="submit" class="btn btn-default btn-lg" style="">Search</button>
-            </center>
-    </form>
-    <br>
+    <div class="container">
+        <form class="form-inline">
+            <div class="form-group well">
+                <center>
+                    <input type="text" class="form-control input-lg" id="rquery" style="vertical-align: middle;">
+                    <button type="submit" class="btn btn-default btn-lg" style="">Search</button>
+                </center>
+            </form>
+            <br>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
 </div>
-<div id="result">
 
-</div>
-</div>
+    <script>
 
-<script>
+    function switchToResults() {
+        document.getElementById("main").style.display = "none";
+        document.getElementById("results").style.display = "";
+    }
 
-function switchToResults() {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("results").style.display = "";
-}
+    $("#searchForm").submit(function(e) {
 
-$("#searchForm").submit(function(e) {
+        var url = "api/V1?q=" + encodeURIComponent(document.getElementById('squery').value); // the script where you handle the form input.
 
-    var url = "api/V1?q=" + encodeURIComponent(document.getElementById('squery').value); // the script where you handle the form input.
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data) {
 
-    $.ajax({
-           type: "GET",
-           url: url,
-           success: function(data) {
-
-               var res = JSON.parse(data.results);
+                var res = JSON.parse(data.results);
 
                 document.getElementById("result").innerHTML = "";
 
@@ -105,14 +106,14 @@ $("#searchForm").submit(function(e) {
                         document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'>" + res[key][0] + "</div> </div>";
                     }
                 }
-           }
+            }
         });
 
-    switchToResults();
+        switchToResults();
 
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-});
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
 
-</script>
+    </script>
 
 </html>
