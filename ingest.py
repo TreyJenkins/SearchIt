@@ -16,7 +16,7 @@ def clean(data):
     data = [ii for n,ii in enumerate(data) if ii not in data[:n]]
     return ' '.join(data)
 
-infile = sys.argv[1]
+infile = sys.argv[3]
 
 indata = None
 
