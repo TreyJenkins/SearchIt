@@ -117,7 +117,7 @@ html, body {
                 for (var key in res) {
                     if (res.hasOwnProperty(key)) {
                         var date = new Date();
-                        date.setTime(res[key][0]);
+                        date.setTime(parseInt(res[key][0])*1000);
                         document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'>" + "DATA HERE" + "</div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
                     }
                 }
