@@ -33,7 +33,7 @@ function search($string) {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $doctab[$row['id']] = array($row['document'], $row['timestamp']);
+                $doctab[(string)$row['id']] = array($row['document'], $row['timestamp']);
                 if (array_key_exists($row['id'], $restrk)) {
                     $restrk[$row['id']]++;
                 } else {
@@ -47,7 +47,7 @@ function search($string) {
 
     rsort($restrk);
     foreach ($restrk as $key => $val) {
-        $results[$doctab[$key][0]] = array("id" => $key, "score" => $val, "timestamp" => $doctab[$key][1]);
+        $results[$doctab[(string)$key][0]] = array("id" => $key, "score" => $val, "timestamp" => $doctab[(string)$key][1]);
     }
 
     $response["results"] = json_encode($results);
