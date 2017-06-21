@@ -28,7 +28,7 @@ output = {"tokens": str(clean(indata)), "timestamp": int(time.time()), "document
 x = db.cursor()
 
 try:
-    x.execute("INSERT INTO indexed VALUES (%s, %s, %s)",(str(clean(indata)), int(time.time()), str(infile)))
+    x.execute("INSERT INTO indexed (tokens, timestamp, document) VALUES (%s, %s, %s)",(str(clean(indata)), int(time.time()), str(infile)))
     print "Commiting..."
     db.commit()
     print "Wrote " + str(len(output["tokens"])) + " bytes of tokens"
