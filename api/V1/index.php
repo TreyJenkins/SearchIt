@@ -32,6 +32,7 @@ function search($string) {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                echo "Result for '" . $item . "': " . $row['document'];
                 if (array_key_exists($row['id'], $restrk)) {
                     $restrk[$row['id']]++;
                 } else {
