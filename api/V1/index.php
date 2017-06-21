@@ -43,8 +43,8 @@ function search($string) {
 
     $results = array();
 
-    foreach ($restrk as $key => $val) {
-        $results[$doctab[$key][0]] = array("id" => $key, "score" => $val, "timestamp" => $doctab[$key][1]);
+    foreach ($doctab as $key => $val) {
+        $results[$val[0]] = array($val[1], $val[2]);
     }
 
     $response["results"] = json_encode($results);
