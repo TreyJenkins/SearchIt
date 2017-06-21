@@ -19,8 +19,15 @@ function search($string) {
     }
     $string = stripslashes($string);
     $string = mysqli_real_escape_string($conn, $string);
-    $string = str_replace('"', "", $string);
-    $string = str_replace("'", "", $string);
+    $string = str_replace('"', " ", $string);
+    $string = str_replace("'", " ", $string);
+    $string = str_replace('.', " ", $string);
+    $string = str_replace("!", " ", $string);
+    $string = str_replace('?', " ", $string);
+    $string = str_replace("\\", " ", $string);
+    $string = str_replace(':', " ", $string);
+    $string = str_replace(";", " ", $string);
+
 
     $query = explode(" ", $string);
     $query = array_filter($query, function($value) { return $value !== ''; });
