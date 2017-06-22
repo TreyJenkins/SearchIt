@@ -2,7 +2,9 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$query = htmlspecialchars($_GET["q"]);
+$query = htmlspecialchars($_GET["q"]); // query
+$full = htmlspecialchars($_GET["f"]); // get contents of file
+$rootdir = "../../";
 $response = array("query" => $query, "version" => "1.0");
 $start = microtime(true);
 
@@ -53,7 +55,7 @@ function search($string) {
     $results = array();
 
     foreach ($doctab as $key => $val) {
-        $results[$val[0]] = array($val[1], $val[2]);
+        $results[$val[0]] = array($val[1], $val[2], file_get_contents($rootdir + $val[0]));
     }
 
     $response["results"] = json_encode($results);
