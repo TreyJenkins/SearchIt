@@ -144,7 +144,7 @@ html, body {
                     if (res.hasOwnProperty(key)) {
                         var date = new Date();
                         date.setTime(parseInt(res[key][0])*1000);
-                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'>" + res[key][2] + "</div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
                     }
                 }
             }
