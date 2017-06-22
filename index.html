@@ -103,8 +103,6 @@ html, body {
         document.getElementById("results").style.display = "";
     }
 
-    hljs.initHighlightingOnLoad();
-
     $("#resForm").submit(function(e) {
 
         var url = "api/V1?q=" + encodeURIComponent(document.getElementById('rquery').value); // the script where you handle the form input.
