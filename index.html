@@ -122,7 +122,16 @@ html, body {
                     if (res.hasOwnProperty(key)) {
                         var date = new Date();
                         date.setTime(parseInt(res[key][0])*1000);
-                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'> <pre> <code>" + "DATA HERE" + "</code> </pre> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+
+                        document.getElementById("result").innerHTML += "<div id='res-" + key + "' class='panel panel-default'> <div class='panel-heading'>" + key + "</div> <div class='panel-body'> <pre> <code>" + datas + "</code> </pre> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+
+                        $.ajax({
+                            type: "GET",
+                            url: key,
+                            success: function(datas) {
+                                document.getElementById("res-" + key).innerHTML = "<div class='panel-heading'>" + key + "</div> <div class='panel-body'> <pre> <code>" + datas + "</code> </pre> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div>";
+                            }
+                        });
                     }
                 }
             }
