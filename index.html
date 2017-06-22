@@ -111,13 +111,11 @@ html, body {
 
 
         var max = 0;
-        var itn = 0
         for (var key in res) {
             var rnk = res[key][1];
             if (rnk > max) {
                 max = rnk;
             }
-            i++;
         }
         while (max > 0) {
             for (var key in res) {
