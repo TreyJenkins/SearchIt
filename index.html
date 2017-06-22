@@ -103,6 +103,28 @@ html, body {
         document.getElementById("results").style.display = "";
     }
 
+    function parseData(data) {
+        var res = JSON.parse(data.results);
+
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("rquery").value = data["query"]
+
+
+        for (var key in res) {
+            if (res.hasOwnProperty(key)) {
+                var date = new Date();
+                date.setTime(parseInt(res[key][0])*1000);
+
+                document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>  <h4 class='panel-title'> <a data-toggle='collapse' href='#res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "'>" + key + "</a> </h4>  </div>  <div id='res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "' class='panel-collapse collapse'> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+            }
+        }
+        $(document).ready(function() {
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    }
+
     $("#resForm").submit(function(e) {
 
         var url = "api/V1?q=" + encodeURIComponent(document.getElementById('rquery').value); // the script where you handle the form input.
@@ -111,26 +133,7 @@ html, body {
             type: "GET",
             url: url,
             success: function(data) {
-
-                var res = JSON.parse(data.results);
-
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("rquery").value = data["query"]
-
-
-                for (var key in res) {
-                    if (res.hasOwnProperty(key)) {
-                        var date = new Date();
-                        date.setTime(parseInt(res[key][0])*1000);
-
-                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>  <h4 class='panel-title'> <a data-toggle='collapse' href='#res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "'>" + key + "</a> </h4>  </div>  <div id='res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "' class='panel-collapse collapse'> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
-                    }
-                }
-                $(document).ready(function() {
-                    $('pre code').each(function(i, block) {
-                        hljs.highlightBlock(block);
-                    });
-                });
+                parseData(data);
             }
         });
 
@@ -145,25 +148,7 @@ html, body {
             type: "GET",
             url: url,
             success: function(data) {
-
-                var res = JSON.parse(data.results);
-
-                document.getElementById("result").innerHTML = "";
-                document.getElementById("rquery").value = data["query"]
-
-
-                for (var key in res) {
-                    if (res.hasOwnProperty(key)) {
-                        var date = new Date();
-                        date.setTime(parseInt(res[key][0])*1000);
-                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>  <h4 class='panel-title'> <a data-toggle='collapse' href='#res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "'>" + key + "</a> </h4>  </div>  <div id='res-" + key.replace('/', '_').replace(" ", "__").replace(".", "--") + "' class='panel-collapse collapse'> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
-                    }
-                }
-                $(document).ready(function() {
-                    $('pre code').each(function(i, block) {
-                        hljs.highlightBlock(block);
-                    });
-                });
+                parseData(data);
             }
         });
 
