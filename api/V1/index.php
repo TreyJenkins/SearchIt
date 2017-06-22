@@ -3,7 +3,6 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
 $query = htmlspecialchars($_GET["q"]); // query
-$full = htmlspecialchars($_GET["f"]); // get contents of file
 $rootdir = "../../";
 $response = array("query" => $query, "version" => "1.0");
 $start = microtime(true);
