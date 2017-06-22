@@ -121,7 +121,7 @@ html, body {
                         var date = new Date();
                         date.setTime(parseInt(res[key][0])*1000);
 
-                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>  <h4 class='panel-title'> <a data-toggle='collapse' href='res-" + key.replace('/', '_') + "'>" + key + "</a> </h4>  </div>  <div id='res-" + key.replace('/', '_') + "' class='panel-collapse collapse'> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
+                        document.getElementById("result").innerHTML += "<div class='panel panel-default'> <div class='panel-heading'>  <h4 class='panel-title'> <a data-toggle='collapse' href='#res-" + key.replace('/', '_') + "'>" + key + "</a> </h4>  </div>  <div id='res-" + key.replace('/', '_') + "' class='panel-collapse collapse'> <div class='panel-body'> <pre> <code>" + res[key][2] + "</code> </pre> </div> </div> <div class='panel-footer'>Last indexed: " + date + " | Rank: " + res[key][1] + "</div> </div>";
                     }
                 }
             }
