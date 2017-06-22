@@ -113,6 +113,8 @@ html, body {
                 var res = JSON.parse(data.results);
 
                 document.getElementById("result").innerHTML = "";
+                document.getElementById("rquery").value = data["query"]
+
 
                 for (var key in res) {
                     if (res.hasOwnProperty(key)) {
@@ -139,6 +141,8 @@ html, body {
                 var res = JSON.parse(data.results);
 
                 document.getElementById("result").innerHTML = "";
+                document.getElementById("rquery").value = data["query"]
+
 
                 for (var key in res) {
                     if (res.hasOwnProperty(key)) {
